@@ -14,7 +14,7 @@ public class Lista {
 		return lista;
 	}
 
-	public int getTotalq() {
+	public int getTotalq(LinkedList<Produto> lista) {
 		int totalq = 0;
 		for (Produto p: lista) {
 			totalq = totalq + p.getQuantidade();

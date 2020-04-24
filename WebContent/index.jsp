@@ -2,6 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix = "sql" uri = "http://java.sun.com/jsp/jstl/sql" %>
+    
        
 <!DOCTYPE html>
 <html>
@@ -13,8 +15,9 @@ crossorigin="anonymous">
 
 <title>Insert title here</title>
 </head>
-<jsp:useBean id="lst" class="prod.Lista" scope="page"/>
+
 <body style="background-color: aqua">
+<jsp:useBean id="pdao" class="prod.ProdutoDao" scope="page"/>
 	<h2 style="text-align: center;">Estoque</h2><br/><br/>
 	<div class="dropdown" style="text-align: center">
   		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,6 +33,7 @@ crossorigin="anonymous">
 	<table border="1px" class="table table-dark table-sm" >
 	  <thead>
 	    <tr>
+	    	<th scope="col">Id</th>
 			<th scope="col">Produto</th>
 			<th scope="col">Marca</th>
 			<th scope="col">Quantidade</th>
@@ -37,14 +41,16 @@ crossorigin="anonymous">
 			<th scope="col">Preço de Custo</th>
 		</tr>
 	  </thead>	
-			<c:forEach var="p" items="${lst.listar()}">
+			<c:forEach var="p" items="${pdao.listar()}">
 				<tbody>
 					<tr>
+						<td class="bg-info">${p.idProduto}</td>
 						<td class="bg-info">${p.descricao}</td>
 						<td class="bg-info">${p.marca}</td>
 						<td class="bg-info">${p.quantidade}</td>
 						<td class="bg-info">${p.venda}</td>
 						<td class="bg-info">${p.custo}</td>
+						<td class="bg-info"><a href="excluir.jsp?idProduto=${p.getIdProduto()}">Excluir</a></td>
 					</tr>
 				</tbody>
 			</c:forEach>
@@ -62,10 +68,10 @@ crossorigin="anonymous">
 	  	
 	   	<tbody>
 			<tr>
-				<td class="bg-info">${lst.totalq}</td>
-				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${lst.totalv}" /></td>
-				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${lst.totalc}" /></td>
-				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${lst.lucro}" /></td>
+				<td class="bg-info">${pdao.getTotalq(pdao.listar())}</td>
+				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${pdao.getTotalv(pdao.listar())}" /></td>
+				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${pdao.getTotalc(pdao.listar())}" /></td>
+				<td class="bg-info"><fmt:formatNumber type = "number" pattern = "0.00" value = "${pdao.getLucro(pdao.listar())}" /></td>
 			</tr>
 		</tbody>
 		

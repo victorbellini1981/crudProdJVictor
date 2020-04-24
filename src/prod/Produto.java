@@ -1,11 +1,20 @@
 package prod;
 
 public class Produto {
+	private int idProduto;
 	private String descricao;
 	private String marca;
 	private double custo;
 	private double venda;
 	private int quantidade;
+	
+	
+	public int getIdProduto() {
+		return idProduto;
+	}
+	public void setIdProduto(int idProduto) {
+		this.idProduto = idProduto;
+	}
 	
 	public String getDescricao() {
 		return descricao;
